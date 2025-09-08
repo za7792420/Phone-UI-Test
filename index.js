@@ -1,75 +1,63 @@
-// index.js
+(function () {
+    'use strict';
 
-// 顶级日志：如果这个信息在控制台出现，说明SillyTavern至少加载了这个文件。
-console.log('[手机美化] index.js 文件已加载。');
+    // 定义需要加载的脚本及其路径
+    const scriptsToLoad = [
+        'extensions/ST-Phone-UI/js/app.campus-card.js',
+        'extensions/ST-Phone-UI/js/app.boli-bite.js',
+        'extensions/ST-Phone-UI/js/core.js'
+    ];
 
-SillyTavern.Foundry.registerExtension({
-  name: 'phone-beautifier',
-  displayName: '手机美化',
-  version: '1.0.1', // 升级版本号以示区分
-  author: '插件助手',
-
-  // 这个事件在插件被加载时触发
-  onLoad() {
-    console.log('[手机美化] 插件 onLoad 事件已触发。');
-  },
-
-  async onMessageRendered(message) {
-    // 每次有消息渲染时，都会打印这条日志
-    console.log(`[手机美化] 正在检查消息 #${message.id}，内容: "${message.text.substring(0, 30)}..."`);
-
-    const messageText = message.text;
-    const messageElement = message.element;
-
-    // 检查是否包含触发词
-    if (messageText.includes('[phone-ui]')) {
-      console.log(`[手机美化] 在消息 #${message.id} 中发现触发词 [phone-ui]`);
-
-      // 防止对同一个消息重复注入
-      if (messageElement.querySelector('#phone-beautifier-root')) {
-          console.log(`[手机美化] 消息 #${message.id} 中已存在UI，跳过注入。`);
-          return;
-      }
-
-      console.log(`[手机美化] 准备向消息 #${message.id} 注入UI...`);
-
-      // 动态加载 FontAwesome
-      if (!document.querySelector('#fa-styles-for-phone')) {
-          const fa = document.createElement('link');
-          fa.id = 'fa-styles-for-phone';
-          fa.rel = 'stylesheet';
-          fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css';
-          document.head.appendChild(fa);
-          console.log('[手机美化] FontAwesome CSS 已加载。');
-      }
-
-      // 为渲染稳定性增加一个微小的延迟
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      const mesTextElement = messageElement.querySelector('.mes_text');
-      if (!mesTextElement) {
-          console.error(`[手机美化] 错误：在消息 #${message.id} 中未找到 .mes_text 元素！`);
-          return;
-      }
-
-      // 隐藏包含触发词的段落
-      const p = Array.from(mesTextElement.querySelectorAll('p')).find(p => p.textContent.includes('[phone-ui]'));
-      if (p) {
-          p.style.display = 'none';
-          console.log(`[手机美化] 已隐藏包含触发词的  元素。`);
-      } else {
-          console.warn(`[手机美化] 警告：未找到包含 '[phone-ui]' 的  元素来隐藏。`);
-      }
-
-      // 注入CSS和HTML
-      SillyTavern.Foundry.inject('phone-beautifier', {
-          css: ['style.css'],
-          html: ['inject.html'],
-          into: mesTextElement,
-          callback: (element) => {
-              console.log(`[手机美化] UI成功注入到消息 #${message.id}！这是最后一步。`);
-          }
-      });
+    // 创建一个函数来动态加载脚本
+    function loadScript(src) {
+        return new Promise((resolve, reject) => {
+            // 防止重复加载
+            if (document.querySelector(`script[src="${src}"]`)) {
+                resolve();
+                return;
+            }
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
+            document.head.appendChild(script);
+        });
     }
-  },
-});
+
+    // 顺序加载所有脚本
+    async function loadAllScripts() {
+        for (const src of scriptsToLoad) {
+            await loadScript(src);
+        }
+    }
+
+    // 注册SillyTavern扩展
+    registerExtension({
+        name: 'PhoneUI',
+        display_name: '手机美化UI v19',
+        author: '{{user}}',
+        version: '1.0.0',
+        onload: async () => {
+            try {
+                // 等待所有脚本加载完毕
+                await loadAllScripts();
+                // 确保PhoneUI对象存在再执行初始化
+                if (window.PhoneUI && typeof window.PhoneUI.init === 'function') {
+                    window.PhoneUI.init();
+                    console.log('PhoneUI and all its modules loaded successfully.');
+                } else {
+                    throw new Error('PhoneUI core failed to define itself on the window object.');
+                }
+            } catch (error) {
+                console.error("Failed to load PhoneUI extension:", error);
+                alert("手机UI插件加载失败，请检查控制台获取更多信息。");
+            }
+        },
+        onunload: () => {
+             if (window.PhoneUI && typeof window.PhoneUI.cleanup === 'function') {
+                window.PhoneUI.cleanup();
+            }
+        },
+    });
+
+})();
