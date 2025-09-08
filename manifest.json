@@ -15,5 +15,6 @@
   ],
   "inject_html_before": [
     "inject.html"
-  ]
+  ],
+  "world_info": "world/phone_ui_manual.json"
 }
