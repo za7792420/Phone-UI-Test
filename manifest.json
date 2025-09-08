@@ -1,8 +1,19 @@
 {
-  "name": "手机美化",
+  "name": "PhoneUI",
+  "display_name": "手机美化UI v19",
+  "author": "{{user}}",
+  "description": "一个功能丰富的多应用手机界面美化插件，支持同层更新与多App扩展。",
   "version": "1.0.0",
-  "author": "插件助手",
-  "description": "将一个复杂手机UI植入聊天消息中，并实现同层更新。",
-  "id": "phone-beautifier",
-  "tags": ["chat", "ui", "beautification"]
+  "tags": [
+    "chat",
+    "ui",
+    "interface"
+  ],
+  "extension_path": "index.js",
+  "styles": [
+    "style.css"
+  ],
+  "inject_html_before": [
+    "inject.html"
+  ]
 }
