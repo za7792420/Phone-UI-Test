@@ -1,0 +1,8 @@
+{
+  "name": "手机美化",
+  "version": "1.0.0",
+  "author": "插件助手",
+  "description": "将一个复杂手机UI植入聊天消息中，并实现同层更新。",
+  "id": "phone-beautifier",
+  "tags": ["chat", "ui", "beautification"]
+}
