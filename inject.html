@@ -1,0 +1,211 @@
+<!-- inject.html -->
+
+<div id="phone-data-source" style="display:none;">$1</div>
+<div class="phone-container">
+    <div class="phone-screen">
+        <div id="dynamic-island"><div class="island-content"></div></div>
+        <div id="home-screen" class="phone-view active">
+            <div id="home-screen-content">
+                <div id="weather-widget" class="home-screen-widget">
+                    <img id="widget-bg-img" class="widget-bg-img" src="" alt="weather background">
+                    <div class="widget-header"><span id="widget-city">城市</span><span id="widget-temp">--°</span></div>
+                    <div class="widget-body"><span id="widget-condition">等待更新</span><span id="widget-hi-lo">最高: --° 最低: --°</span></div>
+                </div>
+                <div class="home-screen-apps">
+                    <div class="app-icon" data-app="wechat-app"><div class="icon-bg" style="background-image: linear-gradient(to top, #06b45a, #07c160);"><i class="fab fa-weixin"></i></div><span class="app-name">微信</span></div>
+                    <div class="app-icon" data-app="boli-bite-app">
+                        <div class="icon-bg" style="background-image: url('https://files.catbox.moe/gk953j.jpeg');"></div>
+                        <span class="app-name">Boli Bite</span>
+                    </div>
+                    <div class="app-icon" data-app="boli-campus-card-app">
+                        <div class="icon-bg" style="background-color: var(--bcc-night-blue);">
+                           <span style="color: var(--bcc-accent-gold); font-weight: bold; font-size: 32px; letter-spacing: -2px;">BC</span>
+                        </div>
+                        <span class="app-name">一卡通</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="wechat-app" class="phone-view inactive-right">
+            <header class="app-header"><i class="fas fa-chevron-left back-button" data-action="go-home"></i><h1 id="wechat-title">微信</h1><div class="actions"><i class="fas fa-search"></i></div></header>
+            <main class="wechat-main-content">
+                <div id="wechat-chats-view" class="wechat-tab-view active"></div>
+                <div id="wechat-contacts-view" class="wechat-tab-view"></div>
+                <div id="wechat-discover-view" class="wechat-tab-view"><div class="section-spacer" style="border:none"></div><div class="menu-item nav-link" data-target-view="moments-view"><i class="far fa-images" style="color:#576B95;"></i><span class="menu-label">朋友圈</span></div><div class="section-spacer"></div><div class="menu-item"><i class="fas fa-video" style="color:#ee735c;"></i><span class="menu-label">视频号</span></div></div>
+                <div id="wechat-me-view" class="wechat-tab-view"><div id="my-profile-card"></div><div class="section-spacer"></div><div class="menu-item nav-link" data-target-view="settings-view"><i class="fas fa-gear" style="color:#576B95"></i><span class="menu-label">设置</span></div></div>
+            </main>
+            <nav class="wechat-tabbar">
+                <div class="tab-item active" data-tab="wechat-chats-view" data-title="微信"><i class="fas fa-comment"></i><span>消息</span></div>
+                <div class="tab-item" data-tab="wechat-contacts-view" data-title="通讯录"><i class="fas fa-address-book"></i><span>通讯录</span></div>
+                <div class="tab-item" data-tab="wechat-discover-view" data-title="发现"><i class="fas fa-compass"></i><span>发现</span></div>
+                <div class="tab-item" data-tab="wechat-me-view" data-title="我"><i class="fas fa-user"></i><span>我</span></div>
+            </nav>
+        </div>
+
+        <div id="boli-campus-card-app" class="phone-view inactive-right">
+            <header class="app-header">
+                <i class="fas fa-chevron-left back-button"></i>
+                <h1>一卡通</h1>
+                <div class="actions">
+                    <i id="bcc-edit-btn" class="fas fa-user-edit" title="编辑个人信息"></i>
+                </div>
+            </header>
+            <main class="bcc-main-content">
+                <div class="bcc-card">
+                    <div class="bcc-card-header">
+                        <div class="logo">
+                            <i class="fas fa-shield-alt"></i>
+                            <span id="bcc-school-name">博理公学</span>
+                        </div>
+                        <div id="bcc-card-type" class="bcc-card-type">学生卡</div>
+                    </div>
+                    <div class="bcc-card-info">
+                        <div class="label">校园卡余额 (元)</div>
+                        <div id="bcc-balance" class="value">0.00</div>
+                    </div>
+                    <div class="bcc-card-footer">
+                        <div class="bcc-person-info">
+                            <div id="bcc-person-name" class="name">姓名</div>
+                            <div id="bcc-person-id" class="id">ID: G12-000000</div>
+                        </div>
+                        <div class="bcc-chip"></div>
+                    </div>
+                </div>
+
+                <section class="bcc-recharge-section">
+                    <h3 class="bcc-section-title">在线充值</h3>
+                    <div class="payment-options">
+                        <div class="payment-option" data-channel="wechat">
+                            <i class="fab fa-weixin"></i>
+                            <span>微信支付</span>
+                        </div>
+                        <div class="payment-option" data-channel="alipay">
+                            <i class="fab fa-alipay"></i>
+                            <span>支付宝</span>
+                        </div>
+                        <div class="payment-option" data-channel="bank">
+                            <div class="bank-icons"><i class="fa-brands fa-cc-unionpay"></i><i class="fa-brands fa-cc-visa"></i></div>
+                            <span>银行卡</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bcc-transit-section">
+                    <h3 class="bcc-section-title">校园交通</h3>
+                    <button id="bcc-show-qr-btn">
+                        <i class="fas fa-qrcode"></i> 点击显示乘车码
+                    </button>
+                    <div class="transit-types">
+                        <div class="transit-type"><i class="fas fa-train-tram"></i><span>校园轻轨</span></div>
+                        <div class="transit-type"><i class="fas fa-bus-alt"></i><span>接驳巴士</span></div>
+                        <div class="transit-type"><i class="fas fa-bicycle"></i><span>共享微交通</span></div>
+                    </div>
+                </section>
+
+                <section class="bcc-id-section">
+                     <h3 class="bcc-section-title">身份信息</h3>
+                     <div class="bcc-id-card">
+                        <div class="id-avatar-wrapper">
+                            <div id="bcc-id-avatar" class="id-avatar"></div>
+                        </div>
+                        <div class="id-info">
+                            <div class="id-info-header">
+                                <span id="bcc-id-name" class="id-name">姓名</span>
+                                <span id="bcc-id-age" class="id-age">年龄</span>
+                            </div>
+                            <div id="bcc-id-details">
+                                <!-- JS will populate this -->
+                            </div>
+                            <div class="id-footer">
+                                <i class="fas fa-shield-alt id-school-logo"></i>
+                                <span class="id-school-name">Boli Academy</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <div id="bcc-qr-modal" class="bcc-qr-modal">
+                <div class="qr-code-wrapper">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Boli-Academy-Transit-Pass-User-{{user_name}}-{{user_id}}-Valid" alt="校园交通码">
+                    <div class="scan-line"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="weather-app-view" class="phone-view inactive-right">
+            <div id="weather-app-container">
+                <div class="weather-back-button"><i class="fas fa-chevron-left"></i> 返回</div>
+                <div class="weather-main-info">
+                    <div id="app-city">城市名</div><h1 id="app-temp">--°</h1><div id="app-condition">天气状况</div><div id="app-hi-lo">最高: --° 最低: --°</div>
+                </div>
+                <div class="weather-card"><div class="card-header"><i class="far fa-clock"></i> 24小时温度预报</div><div class="hourly-forecast-container"><div id="hourly-forecast-scroll" class="hourly-forecast-scroll"></div></div></div>
+                <div class="weather-card"><div class="card-header"><i class="far fa-calendar-alt"></i> 10天天气预报</div><div id="daily-forecast-container" class="daily-forecast-container"></div></div>
+            </div>
+        </div>
+
+        <div id="boli-bite-app" class="phone-view inactive-right">
+            <header class="app-header">
+                <i class="fas fa-chevron-left back-button"></i>
+                <h1 id="bb-title">Boli Bite</h1>
+                <div class="actions">
+                    <i class="fas fa-shopping-cart" id="bb-header-cart-icon">
+                        <div id="bb-cart-badge">0</div>
+                    </i>
+                </div>
+            </header>
+            <main class="bb-main-content">
+                <div id="bb-restaurant-list-view" class="bb-view active"></div>
+                <div id="bb-menu-view" class="bb-view"></div>
+                <div id="bb-exhibition-view" class="bb-view"></div>
+                <div id="bb-cart-container" class="bb-view"></div>
+            </main>
+            <div id="bb-checkout-footer">
+                <div class="balance-info"><div class="total-cost">¥ 0.00</div><div class="balance">校园卡余额: <span id="bb-balance-display">¥ 0.00</span></div></div>
+                <button id="bb-place-order-btn">提交订单</button>
+            </div>
+        </div>
+
+        <div id="chat-window-view" class="phone-view inactive-right">
+            <header class="app-header">
+                <i class="fas fa-chevron-left back-button"></i><h1 id="chat-window-title"></h1><div class="actions"><i class="fas fa-ellipsis-h" id="chat-options-btn"></i></div>
+            </header>
+            <div class="chat-content-area"><div class="messages-container"></div></div>
+            <footer class="chat-footer">
+                <div class="chat-input-bar"><i id="chat-voice-btn" class="fas fa-microphone"></i><textarea id="chat-input-textarea" class="chat-input-bar_text" rows="1" placeholder="发消息..."></textarea><i id="chat-emoji-btn" class="far fa-smile"></i><i id="chat-plus-btn" class="fas fa-plus-circle"></i><button id="chat-send-btn" class="send-button">发送</button></div>
+                <div id="panel-container" class="panel-container"><div id="chat-emoji-menu" class="panel-view"></div><div id="chat-plus-menu" class="panel-view"></div></div>
+            </footer>
+        </div>
+        <div id="chat-info-view" class="phone-view inactive-right">
+            <header class="app-header"><i class="fas fa-chevron-left back-button"></i><h1 id="chat-info-title">聊天信息</h1></header>
+            <div class="content" id="chat-info-content"></div>
+        </div>
+        <div id="moments-view" class="phone-view inactive-right">
+            <header class="app-header"><i class="fas fa-chevron-left back-button"></i><h1>朋友圈</h1><div class="actions"><i id="post-new-moment" class="fas fa-camera" title="发朋友圈"></i></div></header>
+            <div class="content"><div class="moments-header-bg"><div class="moments-user"><span id="my-moments-name" class="name"></span><div id="my-moments-avatar" class="avatar"></div></div></div><div id="my-moments-signature" class="moments-signature"></div><div id="moments-feed-container" class="moments-feed"></div></div>
+        </div>
+        <div id="friend-requests-view" class="phone-view inactive-right">
+            <header class="app-header"><i class="fas fa-chevron-left back-button"></i><h1>新的朋友</h1></header>
+            <div class="content" id="friend-requests-list-container"></div>
+        </div>
+        <div id="settings-view" class="phone-view inactive-right">
+            <header class="app-header"><i class="fas fa-chevron-left back-button"></i><h1>设置</h1></header>
+            <div class="content">
+                <div class="section-spacer" style="border:none;"></div>
+                <div id="setting_chat_wallpaper" class="setting-item"><span>聊天背景</span><i class="fas fa-chevron-right"></i></div>
+                <div id="setting_home_wallpaper" class="setting-item"><span>主页壁纸</span><i class="fas fa-chevron-right"></i></div>
+                <div id="setting_moments_cover" class="setting-item"><span>朋友圈封面</span><i class="fas fa-chevron-right"></i></div>
+                <div class="section-spacer"></div>
+                <div id="setting_user_avatar" class="setting-item"><span>更换我的头像</span><i class="fas fa-chevron-right"></i></div>
+                <div id="setting_user_name" class="setting-item"><span>更改我的昵称</span><i class="fas fa-chevron-right"></i></div>
+                <div id="setting_moments_signature" class="setting-item"><span>更改个性签名</span><i class="fas fa-chevron-right"></i></div>
+                <div class="section-spacer"></div>
+                <div id="setting_clear_storage" class="setting-item" style="justify-content:center;color:var(--badge-red);"><span>清除所有本地数据并重置</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="cq-container">
+    <div id="cq-fab"><i class="fas fa-comment-dots"></i><div id="cq-badge" class="cq-badge">0</div></div>
+    <div id="cq-panel"><div class="cq-header"><h3>待发送指令</h3></div><ul id="cq-list" class="cq-list"></ul><div class="cq-footer"><button id="cq-clear-btn" class="cq-btn cq-btn-clear">清空</button><button id="cq-send-btn" class="cq-btn cq-btn-send"><i class="fas fa-paper-plane"></i> 全部发送</button></div></div>
+</div>
