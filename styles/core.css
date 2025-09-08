@@ -1,0 +1,43 @@
+/* styles/core.css */
+:root {
+    --bg-color: #ededed; --header-bg: #f7f7f7; --tabbar-bg: #f7f7f7; --text-primary: #191919;
+    --text-secondary: #8a8a8a; --wechat-green: #07c160; --divider-color: #e0e0e0;
+    --badge-red: #fa5151; --link-blue: #576b95; --white: #ffffff;
+    --panel-height: 220px;
+    --wechat-orange: #f29c38; --wechat-red: #fa9d9b; --gift-blue: #3a456a;
+    /* Boli Bite Colors */
+    --bb-primary: #e67e22; --bb-secondary: #FFD700; --bb-bg: #f4f4f4; --bb-light-bg: #fff; --bb-text-dark: #333;
+    --bb-text-light: #777; --bb-luxury-bg: #1a1a1a; --bb-luxury-text: #e0e0e0; --bb-luxury-gold: #c9a96e;
+    --bb-add-btn: #e0e0e0; --bb-add-btn-hover: #d1d1d1; --bb-add-btn-icon: #333; --bb-price-red: #c0392b;
+    /* Boli Campus Card Colors --- Style Update v3.1 --- */
+    --bcc-night-blue: #1B2B5A;
+    --bcc-card-bg: linear-gradient(135deg, #2A4080, #1B2B5A);
+    --bcc-accent-light: #a9c2f5;
+    --bcc-accent-gold: #E0C78F;
+    --bcc-text-primary: #ffffff;
+    --bcc-text-secondary: #b0c4de;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+.mobile-beautifier-body { display: flex; justify-content: center; align-items: center; background: transparent; min-height: 100vh; padding: 20px 0; }
+.phone-container { width: 100%; max-width: 380px; aspect-ratio: 9 / 19.5; min-height: 780px; max-height: 95vh; padding: 12px; border-radius: 54px; background: #1c1c1c; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4), inset 0 0 2px rgba(255,255,255,0.1), inset 0 -2px 2px rgba(0,0,0,0.2); position: relative; display: flex; flex-direction: column; }
+.phone-container::after { content: ''; position: absolute; right: -4px; top: 120px; width: 3px; height: 100px; border-radius: 0 2px 2px 0; background-color: #555; box-shadow: inset 0 0 1px rgba(0,0,0,0.5); }
+.phone-screen { width: 100%; height: 100%; border-radius: 42px; overflow: hidden; display: flex; flex-direction: column; position: relative; background: #000; box-shadow: inset 0 0 8px rgba(0,0,0,0.5);}
+#dynamic-island { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 120px; height: 32px; background-color: #000; border-radius: 16px; z-index: 20; transition: all 0.5s cubic-bezier(0.65, 0, 0.35, 1); display: flex; justify-content: center; align-items: center; overflow: hidden; color: white; font-size: 13px; font-weight: 500; }
+#dynamic-island.expanded { width: 220px; }
+.island-content { display: flex; align-items: center; gap: 8px; transform: scale(0); opacity: 0; transition: all 0.3s ease-out 0.2s; white-space: nowrap; }
+#dynamic-island.expanded .island-content { transform: scale(1); opacity: 1; }
+#dynamic-island .island-content i { font-size: 14px; }
+.phone-view { display: none; width: 100%; height: 100%; flex-direction: column; background-color: var(--bg-color); position: absolute; top: 0; left: 0; transition: transform 0.3s ease-in-out; }
+.phone-view.active { display: flex; transform: translateX(0); z-index: 2; }
+.phone-view.inactive-left { transform: translateX(-100%); } .phone-view.inactive-right { transform: translateX(100%); }
+#home-screen { z-index: 1; background-size: cover; background-position: center; } #home-screen.active { transform: translateX(0) !important; z-index: 1;}
+#home-screen-content { padding: 55px 20px 20px; display: flex; flex-direction: column; gap: 20px; }
+.home-screen-apps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 0 10px;}
+.app-icon { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; cursor: pointer; }
+.app-icon .icon-bg { width: 68px; height: 68px; border-radius: 16px; display: flex; justify-content: center; align-items: center; font-size: 34px; color: white; box-shadow: 0 3px 6px rgba(0,0,0,0.2); background-size: cover; background-position: center; }
+.app-icon .app-name { color: white; font-size: 13px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+.app-header { height: 56px; background: var(--header-bg); padding: 0 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--divider-color); flex-shrink: 0; position:relative; z-index: 10;}
+.app-header h1 { font-size: 18px; font-weight: 600; color: var(--text-primary); position: absolute; left: 50%; transform: translateX(-50%); max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; z-index: 1;}
+.app-header .actions { display: flex; align-items: center; gap: 16px; font-size: 20px; color: var(--text-primary); z-index: 2; margin-left: auto; position: relative; }
+.app-header .actions i { cursor: pointer; position: relative; } .app-header .actions i:active, .app-header .back-button:active { opacity: 0.7; }
+.app-header .back-button { font-size: 20px; color: var(--text-primary); cursor: pointer; padding: 8px; margin-left: -8px; z-index: 2; position: relative; }
